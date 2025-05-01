@@ -1,0 +1,49 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+input {
+    padding: 10px;
+    width: 200px;
+}
+
+button {
+    padding: 10px 20px;
+}
+
+.chart-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 20px auto;
+}
+
+canvas {
+    width: 100% !important;
+    height: auto !important;
+}
+.chart-flex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+.chart-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 20px auto;
+}
+
+.btn-logout {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
+.btn-logout:hover {
+    background-color: #d32f2f;
+}
+

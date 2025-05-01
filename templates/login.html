@@ -1,0 +1,164 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Login | Finance Tracker</title>
+        
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+        <!-- FontAwesome for Icons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+        <style>
+            /* Background with Animated Gradient */
+            body {
+                background: linear-gradient(270deg, #80deea, #e0f7fa, #80deea);
+                background-size: 600% 600%;
+                animation: gradientBG 15s ease infinite;
+                font-family: 'Poppins', sans-serif;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+            }
+
+            @keyframes gradientBG {
+                0% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+                100% { background-position: 0% 50%; }
+            }
+
+            /* Login Card with Glassmorphism */
+            .login-card {
+                background: rgba(255, 255, 255, 0.8);
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255, 255, 255, 0.3);
+                box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+                padding: 40px;
+                border-radius: 20px;
+                text-align: center;
+                width: 100%;
+                max-width: 400px;
+                animation: fadeInUp 1s ease-out;
+            }
+
+            @keyframes fadeInUp {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+
+            .login-card h2 {
+                margin-bottom: 20px;
+                color: #00796b;
+                font-weight: 600;
+            }
+
+            .input-container {
+                position: relative;
+                margin: 15px 0;
+                width: 90%;
+            }
+
+            .input-container input {
+                width: 100%;
+                padding: 12px 40px 12px 15px;
+                border-radius: 8px;
+                border: 1px solid #ccc;
+                font-size: 16px;
+                transition: all 0.3s;
+            }
+
+            .input-container i {
+                position: absolute;
+                top: 50%;
+                right: 15px;
+                transform: translateY(-50%);
+                color: #00796b;
+            }
+
+            .input-container input:focus {
+                border: 2px solid #4db6ac;
+                box-shadow: 0 0 10px rgba(77, 182, 172, 0.5);
+                outline: none;
+            }
+
+            .login-card button {
+                background: linear-gradient(45deg, #00acc1, #26c6da);
+                color: white;
+                border: none;
+                padding: 12px 20px;
+                border-radius: 8px;
+                font-size: 16px;
+                cursor: pointer;
+                width: 100%;
+                margin-top: 20px;
+                transition: background 0.5s;
+            }
+
+            .login-card button:hover {
+                background: linear-gradient(45deg, #26c6da, #00acc1);
+            }
+
+            .login-card p {
+                margin-top: 20px;
+                font-size: 14px;
+            }
+
+            .login-card a {
+                text-decoration: none;
+                color: #00796b;
+                font-weight: 600;
+            }
+
+            .login-card ul {
+                list-style: none;
+                padding: 0;
+                margin-top: 10px;
+                color: red;
+            }
+
+            /* Mobile Responsive */
+            @media (max-width: 480px) {
+                .login-card {
+                    padding: 30px 20px;
+                    width: 90%;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="login-card">
+            <h2>Login to Finance Tracker</h2>
+            <form method="POST">
+                <div class="input-container">
+                    <input type="text" name="username" placeholder="Username" required>
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="input-container">
+                    <input type="password" name="password" placeholder="Password" required>
+                    <i class="fas fa-lock"></i>
+                </div>
+                <button type="submit">Login</button>
+            </form>
+
+            <p>Don't have an account? <a href="{{ url_for('register') }}">Register here</a></p>
+
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul>
+                    {% for msg in messages %}
+                        <li>{{ msg }}</li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+        </div>
+    </body>
+    </html>
