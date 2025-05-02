@@ -1,3 +1,47 @@
+# from flask import Flask, render_template, request, redirect, url_for, flash, session, make_response
+# import sqlite3
+# import os
+# from datetime import datetime
+# from io import StringIO, BytesIO
+# import pandas as pd
+# from xhtml2pdf import pisa
+
+# # Initialize app
+# app = Flask(__name__)
+# app.secret_key = 'your_secret_key'
+
+# # Determine DB path
+# if os.environ.get("FLASK_ENV") == "testing":
+#     DB_PATH = 'test_database.db'
+# else:
+#     DB_PATH = os.path.join(os.getcwd(), 'instance', 'database.db')
+
+# # Connect to DB
+# def get_db_connection():
+#     conn = sqlite3.connect(DB_PATH)
+#     conn.row_factory = sqlite3.Row
+#     return conn
+
+# # DB setup
+# with get_db_connection() as conn:
+#     conn.execute('''CREATE TABLE IF NOT EXISTS users (
+#                         id INTEGER PRIMARY KEY AUTOINCREMENT,
+#                         username TEXT NOT NULL UNIQUE,
+#                         password TEXT NOT NULL
+#                     )''')
+#     conn.execute('''CREATE TABLE IF NOT EXISTS transactions (
+#                         id INTEGER PRIMARY KEY AUTOINCREMENT,
+#                         username TEXT NOT NULL,
+#                         type TEXT NOT NULL,
+#                         category TEXT NOT NULL,
+#                         amount REAL NOT NULL,
+#                         note TEXT,
+#                         date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+#                     )''')
+#     conn.commit()
+
+
+
 from flask import Flask, render_template, request, redirect, url_for, flash, session, make_response
 import sqlite3
 import os
@@ -22,23 +66,27 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row
     return conn
 
-# DB setup
-with get_db_connection() as conn:
-    conn.execute('''CREATE TABLE IF NOT EXISTS users (
-                        id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        username TEXT NOT NULL UNIQUE,
-                        password TEXT NOT NULL
-                    )''')
-    conn.execute('''CREATE TABLE IF NOT EXISTS transactions (
-                        id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        username TEXT NOT NULL,
-                        type TEXT NOT NULL,
-                        category TEXT NOT NULL,
-                        amount REAL NOT NULL,
-                        note TEXT,
-                        date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-                    )''')
-    conn.commit()
+# Create tables if they don't exist
+def initialize_db():
+    with get_db_connection() as conn:
+        conn.execute('''CREATE TABLE IF NOT EXISTS users (
+                            id INTEGER PRIMARY KEY AUTOINCREMENT,
+                            username TEXT NOT NULL UNIQUE,
+                            password TEXT NOT NULL
+                        )''')
+        conn.execute('''CREATE TABLE IF NOT EXISTS transactions (
+                            id INTEGER PRIMARY KEY AUTOINCREMENT,
+                            username TEXT NOT NULL,
+                            type TEXT NOT NULL,
+                            category TEXT NOT NULL,
+                            amount REAL NOT NULL,
+                            note TEXT,
+                            date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                        )''')
+        conn.commit()
+
+
+
 
 @app.route('/')
 def home():

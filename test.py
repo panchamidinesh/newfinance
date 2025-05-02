@@ -34,6 +34,12 @@ class FlaskAppTestCase(unittest.TestCase):
                             date TIMESTAMP DEFAULT CURRENT_TIMESTAMP)''')
         conn.commit()
         conn.close()
+        
+        
+        def tearDown(self):
+             if os.path.exists(self.db_path):
+              os.remove(self.db_path)
+
 
     def register(self, username, password):
         return self.client.post('/register', data=dict(
