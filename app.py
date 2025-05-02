@@ -51,6 +51,22 @@ import pandas as pd
 from xhtml2pdf import pisa
 
 # Initialize app
+# app = Flask(__name__)
+# app.secret_key = 'your_secret_key'
+
+# # Determine DB path
+# if os.environ.get("FLASK_ENV") == "testing":
+#     DB_PATH = 'test_database.db'
+# else:
+#     DB_PATH = os.path.join(os.getcwd(), 'instance', 'database.db')
+
+# # Connect to DB
+# def get_db_connection():
+#     conn = sqlite3.connect(DB_PATH)
+#     conn.row_factory = sqlite3.Row
+#     return conn
+
+
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
 
@@ -58,13 +74,17 @@ app.secret_key = 'your_secret_key'
 if os.environ.get("FLASK_ENV") == "testing":
     DB_PATH = 'test_database.db'
 else:
-    DB_PATH = os.path.join(os.getcwd(), 'instance', 'database.db')
+    instance_dir = os.path.join(os.getcwd(), 'instance')
+    os.makedirs(instance_dir, exist_ok=True)  # Ensure the directory exists
+    DB_PATH = os.path.join(instance_dir, 'database.db')
 
 # Connect to DB
 def get_db_connection():
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
     return conn
+
+
 
 # Create tables if they don't exist
 def initialize_db():
