@@ -36,7 +36,7 @@ jobs:
     # Build Docker image
     - name: Build Docker image
       run: |
-        docker build -t ${{ secrets.DOCKER_USERNAME }}/finance-app:latest .
+        docker build -t ${{ secrets.panchami17 }}/finance-app:latest .
 
     # Log in to Docker Hub
     - name: Log in to Docker Hub
